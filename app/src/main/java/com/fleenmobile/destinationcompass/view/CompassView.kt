@@ -56,4 +56,9 @@ class CompassView @JvmOverloads constructor(
         arrowImageView.setImageDrawable(arrowAnim)
         (arrowAnim as Animatable).start()
     }
+
+    fun rotate(value: Float) =
+            arrowImageView.animate()
+                    .rotation(value)
+                    .start()
 }
