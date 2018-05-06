@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DestinationCompass</string>
+    <string name="your_destination">Your destination:</string>
+    <string name="change_destination">Change destination</string>
 </resources>
