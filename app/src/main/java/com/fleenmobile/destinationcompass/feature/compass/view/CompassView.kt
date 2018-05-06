@@ -1,4 +1,4 @@
-package com.fleenmobile.destinationcompass.view
+package com.fleenmobile.destinationcompass.feature.compass.view
 
 import android.content.Context
 import android.graphics.drawable.Animatable
