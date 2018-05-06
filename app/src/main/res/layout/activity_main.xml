@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_view"
     tools:context=".feature.compass.view.MainActivity">
 
     <android.support.constraint.Guideline
@@ -17,7 +18,7 @@
         app:layout_constraintGuide_percent="0.6" />
 
     <com.fleenmobile.destinationcompass.feature.compass.view.CompassView
-        android:id="@+id/compassView"
+        android:id="@+id/compass_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_60"

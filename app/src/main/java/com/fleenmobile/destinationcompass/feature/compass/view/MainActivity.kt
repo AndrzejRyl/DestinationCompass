@@ -1,6 +1,8 @@
 package com.fleenmobile.destinationcompass.feature.compass.view
 
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -12,11 +14,17 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
-    @BindView(R.id.compassView)
+    @BindView(R.id.compass_view)
     lateinit var compassView: CompassView
+
+    @BindView(R.id.root_view)
+    lateinit var rootView: ConstraintLayout
 
     @Inject
     lateinit var presenter: MainActivityContract.Presenter
+
+    @Inject
+    lateinit var destinationFormDialog: DestinationFormDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -24,11 +32,16 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         setContentView(R.layout.activity_main)
 
         ButterKnife.bind(this)
+        initDestinationFormCallbacks()
+    }
+
+    private fun initDestinationFormCallbacks() {
+        destinationFormDialog.onDestinationChosenCallback = presenter::destinationChosen
     }
 
     //region View
     override fun showDestinationForm() {
-        DestinationFormDialog().show(fragmentManager, DestinationFormDialog.TAG)
+        destinationFormDialog.show(fragmentManager, DestinationFormDialog.TAG)
     }
 
     override fun disableArrow() {
@@ -42,7 +55,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     override fun rotateArrow(value: Float) = compassView.rotate(value)
 
     override fun showDestinationRequiredInfo() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val snackbar = Snackbar.make(rootView, getString(R.string.destination_required), Snackbar.LENGTH_LONG)
+        snackbar.setAction(getString(R.string.choose), { _ -> presenter.changeDestinationClicked() })
+        snackbar.show()
     }
     //endregion
 

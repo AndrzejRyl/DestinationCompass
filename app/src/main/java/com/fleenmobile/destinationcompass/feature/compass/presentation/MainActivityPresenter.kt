@@ -1,6 +1,7 @@
 package com.fleenmobile.destinationcompass.feature.compass.presentation
 
 import com.fleenmobile.destinationcompass.feature.compass.MainActivityContract
+import com.fleenmobile.destinationcompass.feature.compass.view.Destination
 
 class MainActivityPresenter(
         private val view: MainActivityContract.View
@@ -18,7 +19,17 @@ class MainActivityPresenter(
         view.showDestinationForm()
     }
 
-    override fun destinationChosen(longitude: Double?, latitude: Double?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun destinationChosen(destination: Destination) = with(view) {
+        val (longitude, latitude) = destination
+
+        if (longitude == null || latitude == null) {
+            disableArrow()
+            showDestinationRequiredInfo()
+            return
+        } else {
+            // todo calculate rotation
+            enableArrow()
+            rotateArrow(19f)
+        }
     }
 }

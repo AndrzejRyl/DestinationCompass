@@ -5,4 +5,6 @@
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="confirm">Confirm</string>
+    <string name="destination_required">Destination is required!</string>
+    <string name="choose">Choose</string>
 </resources>
