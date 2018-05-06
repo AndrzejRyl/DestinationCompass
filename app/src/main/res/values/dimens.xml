@@ -3,4 +3,6 @@
     <dimen name="compass_background_stroke">2dp</dimen>
     <dimen name="arrow_inactive_elevation">0dp</dimen>
     <dimen name="arrow_active_elevation">5dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
 </resources>

@@ -6,13 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".feature.compass.view.MainActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_10"
+        style="@style/GuidelineHorizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horizontal_60"
+        style="@style/GuidelineHorizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
     <com.fleenmobile.destinationcompass.feature.compass.view.CompassView
         android:id="@+id/compassView"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_60"
+        app:layout_constraintDimensionRatio="W,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_10" />
+
+    <TextView
+        android:id="@+id/destination_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/your_destination"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_60" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintStart_toEndOf="@id/destination_header"
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_60"
+        tools:text="50.079351, 20.018942" />
+
+    <TextView
+        android:id="@+id/change_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/default_padding"
+        android:text="@string/change_destination"
+        android:textAllCaps="true"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/destination_header" />
 
 </android.support.constraint.ConstraintLayout>
