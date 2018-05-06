@@ -7,4 +7,5 @@
     <string name="confirm">Confirm</string>
     <string name="destination_required">Destination is required!</string>
     <string name="choose">Choose</string>
+    <string name="destination_format">%s,%s</string>
 </resources>

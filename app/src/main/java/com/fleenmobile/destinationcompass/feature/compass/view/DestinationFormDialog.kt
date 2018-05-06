@@ -14,7 +14,7 @@ import butterknife.Unbinder
 import com.fleenmobile.destinationcompass.R
 import com.fleenmobile.destinationcompass.parseDouble
 
-data class Destination(val longitude: Double?, val latitude: Double?)
+data class Destination(val latitude: Double?, val longitude: Double?)
 
 typealias OnDestinationChosenCallback = (destination: Destination) -> Unit
 
@@ -50,10 +50,10 @@ class DestinationFormDialog : DialogFragment() {
 
     @OnClick(R.id.destination_form_confirm)
     fun onOkClicked() {
-        val longitude = longitudeEditText.text.toString().parseDouble()
         val latitude = latitudeEditText.text.toString().parseDouble()
+        val longitude = longitudeEditText.text.toString().parseDouble()
 
-        onDestinationChosenCallback?.invoke(Destination(longitude, latitude))
+        onDestinationChosenCallback?.invoke(Destination(latitude, longitude))
         dismiss()
     }
 }

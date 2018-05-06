@@ -11,6 +11,7 @@ interface MainActivityContract {
         fun enableArrow()
         fun rotateArrow(value: Float)
         fun showDestinationRequiredInfo()
+        fun showDestination(latitude: String, longitude: String)
     }
 
     interface Presenter : BaseContract.Presenter {
