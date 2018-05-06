@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="51.636"
+    android:viewportWidth="51.636">
+
+    <group android:name="arrow">
+        <path
+            android:name="arrowPath"
+            android:fillColor="@color/inactiveArrow"
+            android:pathData="m26.3993,0.0484c-0.4243,-0.0068 -0.8061,0.2459 -0.9532,0.6297L6.4568,50.1338c-0.152,0.3982 -0.0191,0.8448 0.3302,1.103 0.3493,0.2582 0.8309,0.2657 1.1879,0.0191L26.3555,38.5995 43.0312,51.2293c0.3479,0.2623 0.8344,0.2745 1.1943,0.028 0.0474,-0.0321 0.0905,-0.0669 0.1301,-0.1052 0.2652,-0.2561 0.3642,-0.6399 0.2404,-0.9916L27.332,0.7047C27.1969,0.3174 26.8229,0.0545 26.3993,0.0484ZM41.6311,47.7148 L27.0018,36.634c-0.3493,-0.2636 -0.8372,-0.2745 -1.1978,-0.0259L9.4627,47.8589 26.3392,3.9077Z"
+            android:strokeWidth="0.98276961" />
+    </group>
+
+</vector>

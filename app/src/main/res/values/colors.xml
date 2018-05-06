@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="athensGray">#F7F7F8</color>
+    <color name="silverSand">#C6C7C7</color>
+    <color name="activeArrow">#d80027</color>
+    <color name="inactiveArrow">#8A8A8A</color>
 </resources>
