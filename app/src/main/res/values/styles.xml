@@ -8,10 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="GuidelineHorizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="DestinationFormHeader" parent="Wrap">
+        <item name="android:padding">@dimen/default_padding</item>
+    </style>
+
+    <style name="DestinationFormValue" parent="Wrap">
+        <item name="android:padding">@dimen/default_padding</item>
     </style>
 
 </resources>

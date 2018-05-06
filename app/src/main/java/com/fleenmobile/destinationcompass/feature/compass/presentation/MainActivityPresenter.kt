@@ -15,7 +15,7 @@ class MainActivityPresenter(
     }
 
     override fun changeDestinationClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showDestinationForm()
     }
 
     override fun destinationChosen(longitude: Double?, latitude: Double?) {
