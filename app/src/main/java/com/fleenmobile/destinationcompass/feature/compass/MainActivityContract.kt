@@ -1,6 +1,7 @@
 package com.fleenmobile.destinationcompass.feature.compass
 
 import com.fleenmobile.destinationcompass.BaseContract
+import com.fleenmobile.destinationcompass.feature.compass.view.Destination
 
 interface MainActivityContract {
 
@@ -10,10 +11,11 @@ interface MainActivityContract {
         fun enableArrow()
         fun rotateArrow(value: Float)
         fun showDestinationRequiredInfo()
+        fun showDestination(latitude: String, longitude: String)
     }
 
     interface Presenter : BaseContract.Presenter {
         fun changeDestinationClicked()
-        fun destinationChosen(longitude: Double?, latitude: Double?)
+        fun destinationChosen(destination: Destination)
     }
 }
