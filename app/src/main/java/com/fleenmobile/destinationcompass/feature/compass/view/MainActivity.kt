@@ -18,4 +18,24 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
         ButterKnife.bind(this)
     }
+
+    //region View
+    override fun showDestinationForm() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun disableArrow() {
+        compassView.isActive = false
+    }
+
+    override fun enableArrow() {
+        compassView.isActive = true
+    }
+
+    override fun rotateArrow(value: Float) = compassView.rotate(value)
+
+    override fun showDestinationRequiredInfo() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    //endregion
 }

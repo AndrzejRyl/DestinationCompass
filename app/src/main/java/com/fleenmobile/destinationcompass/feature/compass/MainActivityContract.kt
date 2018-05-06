@@ -4,7 +4,16 @@ import com.fleenmobile.destinationcompass.BaseContract
 
 interface MainActivityContract {
 
-    interface View
-    interface Router
-    interface Presenter : BaseContract.Presenter
+    interface View {
+        fun showDestinationForm()
+        fun disableArrow()
+        fun enableArrow()
+        fun rotateArrow(value: Float)
+        fun showDestinationRequiredInfo()
+    }
+
+    interface Presenter : BaseContract.Presenter {
+        fun changeDestinationClicked()
+        fun destinationChosen(longitude: Double?, latitude: Double?)
+    }
 }
