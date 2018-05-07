@@ -5,8 +5,11 @@ import com.fleenmobile.destinationcompass.feature.compass.presentation.MainActiv
 import com.fleenmobile.destinationcompass.feature.compass.view.DestinationFormDialog
 import com.fleenmobile.destinationcompass.feature.compass.view.MainActivity
 import com.fleenmobile.destinationcompass.util.injection.RuntimeScope
+import com.fleenmobile.destinationcompass.util.location.LocationDataProvider
+import com.fleenmobile.destinationcompass.util.orientation.OrientationDataProvider
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class MainActivityModule {
@@ -17,9 +20,12 @@ class MainActivityModule {
     @RuntimeScope
     @Provides
     fun presenter(
-            view: MainActivityContract.View
+            view: MainActivityContract.View,
+            orientationDataProvider: OrientationDataProvider,
+            locationDataProvider: LocationDataProvider,
+            compositeDisposable: CompositeDisposable
     ): MainActivityContract.Presenter =
-            MainActivityPresenter(view)
+            MainActivityPresenter(view, orientationDataProvider, locationDataProvider, compositeDisposable)
 
     @Provides
     @RuntimeScope

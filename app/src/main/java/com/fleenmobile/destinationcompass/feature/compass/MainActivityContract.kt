@@ -12,6 +12,7 @@ interface MainActivityContract {
         fun rotateArrow(value: Float)
         fun showDestinationRequiredInfo()
         fun showDestination(latitude: String, longitude: String)
+        fun showError(message: String?)
     }
 
     interface Presenter : BaseContract.Presenter {

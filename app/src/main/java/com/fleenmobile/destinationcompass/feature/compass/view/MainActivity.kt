@@ -37,6 +37,13 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
         ButterKnife.bind(this)
         initDestinationFormCallbacks()
+
+        presenter.initialize()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.clear()
     }
 
     private fun initDestinationFormCallbacks() {
@@ -71,6 +78,11 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         val destinationString = getString(R.string.destination_format, latitude, longitude)
         destinationTextView.text = destinationString
     }
+
+    override fun showError(message: String?) {
+        //todo show snackbar
+    }
+
     //endregion
 
     @OnClick(R.id.change_destination)
