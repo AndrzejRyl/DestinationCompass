@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.SettingsClient
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 class LocationDataProviderImpl(
         private val fusedLocationProviderClient: FusedLocationProviderClient,
@@ -26,7 +27,7 @@ class LocationDataProviderImpl(
     private lateinit var locationSettingsRequest: LocationSettingsRequest
     private lateinit var locationCallback: LocationCallback
 
-    private val locationSubject = BehaviorSubject.create<Location>()
+    private val locationSubject = PublishSubject.create<Location>()
 
     override fun setup() {
         locationRequest = LocationRequest().apply {

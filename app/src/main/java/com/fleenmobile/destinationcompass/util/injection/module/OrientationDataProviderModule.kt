@@ -8,7 +8,6 @@ import com.fleenmobile.destinationcompass.util.orientation.OrientationDataProvid
 import com.fleenmobile.destinationcompass.util.orientation.OrientationDataProviderImpl
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 
 @Module
 class OrientationDataProviderModule {
@@ -18,19 +17,12 @@ class OrientationDataProviderModule {
             context.getSystemService(SENSOR_SERVICE) as SensorManager
 
     @Provides
-    @Named("accelerometer")
-    fun accelerometer(sensorManager: SensorManager): Sensor =
-            sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-    @Provides
-    @Named("magnetometer")
-    fun magnetometer(sensorManager: SensorManager): Sensor =
-            sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+    fun rotationSensor(sensorManager: SensorManager): Sensor =
+            sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
 
     @Provides
     fun orientationDataProvider(
             sensorManager: SensorManager,
-            @Named("accelerometer") accelerometer: Sensor,
-            @Named("magnetometer") magnetometer: Sensor
-    ): OrientationDataProvider = OrientationDataProviderImpl(sensorManager, accelerometer, magnetometer)
+            rotationSensor: Sensor
+    ): OrientationDataProvider = OrientationDataProviderImpl(sensorManager, rotationSensor)
 }
