@@ -8,4 +8,11 @@
     <string name="destination_required">Destination is required!</string>
     <string name="choose">Choose</string>
     <string name="destination_format">%s,%s</string>
+    <string name="gps_required">GPS is required</string>
+    <string name="gps_required_message">This app requires GPS to work properly</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="cancel">Cancel</string>
+    <string name="permissions_required">Permissions required</string>
+    <string name="permisssions_required_message">Those permissions are required for this app to work correctly</string>
+    <string name="give_permissions">Give permissions</string>
 </resources>

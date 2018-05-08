@@ -59,4 +59,7 @@ dependencies {
 
     //Location
     implementation "com.google.android.gms:play-services-location:15.0.1"
+
+    //Permissions
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
 }

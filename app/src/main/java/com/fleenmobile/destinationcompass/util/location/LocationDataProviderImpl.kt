@@ -10,7 +10,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.SettingsClient
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 class LocationDataProviderImpl(
@@ -25,7 +24,7 @@ class LocationDataProviderImpl(
 
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationSettingsRequest: LocationSettingsRequest
-    private lateinit var locationCallback: LocationCallback
+    private var locationCallback: LocationCallback? = null
 
     private val locationSubject = PublishSubject.create<Location>()
 
@@ -67,7 +66,9 @@ class LocationDataProviderImpl(
             }
 
     override fun clear() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        locationCallback?.let {
+            fusedLocationProviderClient.removeLocationUpdates(it)
+        }
     }
 
     override fun location(): Observable<Location> = locationSubject
