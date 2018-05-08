@@ -15,4 +15,6 @@
     <string name="permissions_required">Permissions required</string>
     <string name="permisssions_required_message">Those permissions are required for this app to work correctly</string>
     <string name="give_permissions">Give permissions</string>
+    <string name="latitude_hint">From -90.0 to 90.0</string>
+    <string name="longitude_hint">From -180.0 to 180.0</string>
 </resources>

@@ -2,10 +2,12 @@ package com.fleenmobile.destinationcompass.feature.compass.view
 
 import android.app.DialogFragment
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -30,6 +32,9 @@ class DestinationFormDialog : DialogFragment() {
     @BindView(R.id.destination_form_latitude)
     lateinit var latitudeEditText: EditText
 
+    lateinit var latitudeInputFilter: InputFilter
+    lateinit var longitudeInputFilter: InputFilter
+
     private lateinit var unbinder: Unbinder
 
     var onDestinationChosenCallback: OnDestinationChosenCallback? = null
@@ -38,9 +43,22 @@ class DestinationFormDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.fragment_destination_form_dialog, container, false)
         unbinder = ButterKnife.bind(this, view)
         isCancelable = false
-        dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog.window.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window.apply {
+            requestFeature(Window.FEATURE_NO_TITLE)
+            setBackgroundDrawableResource(android.R.color.transparent)
+            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        }
+
+        attachInputFilter(latitudeEditText, latitudeInputFilter)
+        attachInputFilter(longitudeEditText, longitudeInputFilter)
         return view
+    }
+
+    private fun attachInputFilter(editText: EditText, inputFilter: InputFilter) {
+        val editTextFilters = arrayListOf<InputFilter>()
+        editTextFilters.addAll(editText.filters)
+        editTextFilters.add(inputFilter)
+        editTextFilters.toArray(editText.filters)
     }
 
     override fun onDestroyView() {
