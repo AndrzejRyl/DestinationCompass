@@ -2,6 +2,7 @@ package com.fleenmobile.destinationcompass.feature.compass.presentation
 
 import android.hardware.GeomagneticField
 import android.location.Location
+import android.location.LocationManager
 import android.util.Log
 import com.fleenmobile.destinationcompass.feature.compass.MainActivityContract
 import com.fleenmobile.destinationcompass.feature.compass.view.Destination
@@ -19,7 +20,8 @@ class MainActivityPresenter(
         private val view: MainActivityContract.View,
         private val orientationDataProvider: OrientationDataProvider,
         private val locationDataProvider: LocationDataProvider,
-        private val compositeDisposable: CompositeDisposable
+        private val compositeDisposable: CompositeDisposable,
+        private val locationManager: LocationManager
 ) : MainActivityContract.Presenter {
 
     companion object {
@@ -35,6 +37,15 @@ class MainActivityPresenter(
                 locationDataProvider.location(),
                 BiFunction { orientation, location -> CompassData(orientation, location) }
         )
+
+        forcePrerequisites()
+    }
+
+    private fun forcePrerequisites() {
+        view.apply {
+            if (!permissionsEnabled) showPermissionsRequiredInfo()
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) showGPSEnabledRequiredInfo()
+        }
     }
 
     override fun clear() {
@@ -65,7 +76,10 @@ class MainActivityPresenter(
         compassDataDisposable = compassDataObservable
                 .subscribe(
                         { view.rotateArrow(calculateRotation(it, destination)) },
-                        { view.showError(it.message) }
+                        {
+                            Log.e(MainActivityPresenter::class.java.name.toUpperCase(), it.message)
+                            view.showError("GPS Error")
+                        }
                 )
         compositeDisposable.add(compassDataDisposable)
 
@@ -80,6 +94,7 @@ class MainActivityPresenter(
     }
 
     private fun calculateRotation(compassData: CompassData, destination: Destination): Float {
+        // todo refactor: move to separate class
         var azimuth = compassData.orientation
         val currentLocation = compassData.location
         val destinationLocation = Location(currentLocation.provider).apply {
@@ -117,4 +132,18 @@ class MainActivityPresenter(
             value?.let {
                 DECIMAL_FORMAT.format(it)
             } ?: "-"
+
+    override fun permissionsNotGranted() {
+        view.showPermissionsRequiredInfo()
+    }
+
+    override fun gpsNotEnabled() {
+        view.showGPSEnabledRequiredInfo()
+    }
+
+    override fun onGPSSettingsReturn() {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            view.showGPSEnabledRequiredInfo()
+        }
+    }
 }
