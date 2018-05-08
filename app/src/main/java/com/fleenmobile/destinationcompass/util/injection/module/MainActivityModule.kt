@@ -10,6 +10,8 @@ import com.fleenmobile.destinationcompass.feature.compass.view.MainActivity
 import com.fleenmobile.destinationcompass.util.injection.RuntimeScope
 import com.fleenmobile.destinationcompass.util.location.LocationDataProvider
 import com.fleenmobile.destinationcompass.util.orientation.OrientationDataProvider
+import com.fleenmobile.destinationcompass.util.rotation.RotationHelper
+import com.fleenmobile.destinationcompass.util.rotation.RotationHelperImpl
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Module
 import dagger.Provides
@@ -26,6 +28,9 @@ class MainActivityModule {
     fun locationManager(context: Context): LocationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
+    @Provides
+    fun rotationHelper(): RotationHelper = RotationHelperImpl()
+
     @RuntimeScope
     @Provides
     fun presenter(
@@ -33,14 +38,16 @@ class MainActivityModule {
             orientationDataProvider: OrientationDataProvider,
             locationDataProvider: LocationDataProvider,
             compositeDisposable: CompositeDisposable,
-            locationManager: LocationManager
+            locationManager: LocationManager,
+            rotationHelper: RotationHelper
     ): MainActivityContract.Presenter =
             MainActivityPresenter(
                     view,
                     orientationDataProvider,
                     locationDataProvider,
                     compositeDisposable,
-                    locationManager
+                    locationManager,
+                    rotationHelper
             )
 
     private fun provideInputFilter(min: Double, max: Double) = InputFilter { source, _, _, dest, _, _ ->
