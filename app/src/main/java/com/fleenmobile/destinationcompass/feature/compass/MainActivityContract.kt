@@ -7,6 +7,7 @@ interface MainActivityContract {
 
     interface View {
         val permissionsEnabled: Boolean
+        val isArrowEnabled: Boolean
 
         fun showDestinationForm()
         fun disableArrow()

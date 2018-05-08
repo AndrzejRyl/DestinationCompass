@@ -56,6 +56,7 @@ class MainActivityPresenter(
 
     override fun changeDestinationClicked() {
         view.showDestinationForm()
+        stopUpdatingCompass()
     }
 
     override fun destinationChosen(destination: Destination) = with(view) {
@@ -64,15 +65,16 @@ class MainActivityPresenter(
 
         if (longitude == null || latitude == null) {
             showDestinationRequiredInfo()
-            stopUpdatingCompassData()
-            disableArrow()
+            stopUpdatingCompass()
         } else {
-            startUpdatingCompassData(destination)
-            enableArrow()
+            startUpdatingCompass(destination)
         }
     }
 
-    private fun startUpdatingCompassData(destination: Destination) {
+    private fun startUpdatingCompass(destination: Destination) {
+        if (view.isArrowEnabled) return
+
+        view.enableArrow()
         compassDataDisposable = compassDataObservable
                 .subscribe(
                         { view.rotateArrow(calculateRotation(it, destination)) },
@@ -87,10 +89,13 @@ class MainActivityPresenter(
         locationDataProvider.setup()
     }
 
-    private fun stopUpdatingCompassData() {
+    private fun stopUpdatingCompass() {
+        if (!view.isArrowEnabled) return
+
         orientationDataProvider.clear()
         locationDataProvider.clear()
         compositeDisposable.remove(compassDataDisposable)
+        view.disableArrow()
     }
 
     private fun calculateRotation(compassData: CompassData, destination: Destination): Float {
