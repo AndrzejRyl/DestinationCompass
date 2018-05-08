@@ -32,13 +32,17 @@
             <EditText
                 android:id="@+id/destination_form_latitude"
                 style="@style/DestinationFormValue"
-                app:layout_constraintStart_toEndOf="@id/destination_form_latitude_header"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_constraintBaseline_toBaselineOf="@id/destination_form_latitude_header"
+                app:layout_constraintStart_toEndOf="@id/destination_form_longitude_header"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="50.42354235" />
 
             <EditText
                 android:id="@+id/destination_form_longitude"
                 style="@style/DestinationFormValue"
+                app:layout_constraintBaseline_toBaselineOf="@id/destination_form_longitude_header"
                 app:layout_constraintStart_toEndOf="@id/destination_form_longitude_header"
                 app:layout_constraintTop_toTopOf="@id/destination_form_longitude_header"
                 tools:text="50.42354235" />

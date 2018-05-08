@@ -25,6 +25,9 @@
 
     <style name="DestinationFormValue" parent="Wrap">
         <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:maxLength">9</item>
+        <item name="android:ems">9</item>
+        <item name="android:inputType">numberDecimal</item>
     </style>
 
 </resources>
