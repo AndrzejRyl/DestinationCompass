@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     override fun showPermissionsRequiredInfo() =
             AlertDialog.Builder(this)
                     .setTitle(getString(R.string.permissions_required))
-                    .setMessage(getString(R.string.permisssions_required_message))
+                    .setMessage(getString(R.string.permissions_required_message))
                     .setPositiveButton(getString(R.string.give_permissions)) { dialog, _ ->
                         dialog.dismiss()
                         requestPermissions()
