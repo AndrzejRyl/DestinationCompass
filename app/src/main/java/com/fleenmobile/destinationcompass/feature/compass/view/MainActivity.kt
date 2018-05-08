@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         get() = rxPermissions.isGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
                 && rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)
 
+    override val isArrowEnabled: Boolean
+        get() = compassView.isActive
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
