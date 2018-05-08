@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -38,8 +39,11 @@ class DestinationFormDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.fragment_destination_form_dialog, container, false)
         unbinder = ButterKnife.bind(this, view)
         isCancelable = false
-        dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog.window.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window.apply {
+            requestFeature(Window.FEATURE_NO_TITLE)
+            setBackgroundDrawableResource(android.R.color.transparent)
+            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        }
         return view
     }
 
