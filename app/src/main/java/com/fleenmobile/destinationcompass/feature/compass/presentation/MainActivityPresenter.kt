@@ -1,6 +1,5 @@
 package com.fleenmobile.destinationcompass.feature.compass.presentation
 
-import android.hardware.GeomagneticField
 import android.location.Location
 import android.location.LocationManager
 import android.util.Log
@@ -8,6 +7,7 @@ import com.fleenmobile.destinationcompass.feature.compass.MainActivityContract
 import com.fleenmobile.destinationcompass.feature.compass.view.Destination
 import com.fleenmobile.destinationcompass.util.location.LocationDataProvider
 import com.fleenmobile.destinationcompass.util.orientation.OrientationDataProvider
+import com.fleenmobile.destinationcompass.util.rotation.RotationHelper
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -21,7 +21,8 @@ class MainActivityPresenter(
         private val orientationDataProvider: OrientationDataProvider,
         private val locationDataProvider: LocationDataProvider,
         private val compositeDisposable: CompositeDisposable,
-        private val locationManager: LocationManager
+        private val locationManager: LocationManager,
+        private val rotationHelper: RotationHelper
 ) : MainActivityContract.Presenter {
 
     companion object {
@@ -77,7 +78,7 @@ class MainActivityPresenter(
         view.enableArrow()
         compassDataDisposable = compassDataObservable
                 .subscribe(
-                        { view.rotateArrow(calculateRotation(it, destination)) },
+                        { view.rotateArrow(rotationHelper.calculateRotation(it, destination)) },
                         {
                             Log.e(MainActivityPresenter::class.java.name.toUpperCase(), it.message)
                             view.showError("GPS Error")
@@ -96,41 +97,6 @@ class MainActivityPresenter(
         locationDataProvider.clear()
         compositeDisposable.remove(compassDataDisposable)
         view.disableArrow()
-    }
-
-    private fun calculateRotation(compassData: CompassData, destination: Destination): Float {
-        // todo refactor: move to separate class
-        var azimuth = compassData.orientation
-        val currentLocation = compassData.location
-        val destinationLocation = Location(currentLocation.provider).apply {
-            this.latitude = destination.latitude ?: 0.0
-            this.longitude = destination.longitude ?: 0.0
-        }
-
-        val geoField = GeomagneticField(
-                currentLocation.latitude.toFloat(),
-                currentLocation.longitude.toFloat(),
-                currentLocation.altitude.toFloat(),
-                System.currentTimeMillis())
-
-        azimuth -= geoField.declination
-
-        var bearTo = currentLocation.bearingTo(destinationLocation)
-
-        // If the bearTo is smaller than 0, add 360 to get the rotation clockwise.
-        if (bearTo < 0) {
-            bearTo += 360
-        }
-
-        //This is where we choose to point it
-        var direction = bearTo - azimuth
-
-        // If the direction is smaller than 0, add 360 to get the rotation clockwise.
-        if (direction < 0) {
-            direction += 360
-        }
-
-        return direction
     }
 
     private fun parseGeoValue(value: Double?): String =
